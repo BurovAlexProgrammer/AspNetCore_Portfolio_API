@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore_Portfolio_API", "AspNetCore_Portfolio_API.csproj", "{ABC74851-AC6D-42B2-B33C-48AB6C6FCCB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABC74851-AC6D-42B2-B33C-48AB6C6FCCB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC74851-AC6D-42B2-B33C-48AB6C6FCCB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC74851-AC6D-42B2-B33C-48AB6C6FCCB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC74851-AC6D-42B2-B33C-48AB6C6FCCB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
