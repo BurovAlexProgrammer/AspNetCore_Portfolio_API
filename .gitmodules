@@ -1,0 +1,3 @@
+[submodule "DAL"]
+	path = DAL
+	url = https://github.com/BurovAlexProgrammer/AspNetCore_Portfolio_DAL
