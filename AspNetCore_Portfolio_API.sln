@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore_Portfolio_DAL", "DAL\AspNetCore_Portfolio_DAL\AspNetCore_Portfolio_DAL.csproj", "{7F26C012-2585-4710-8826-DD993FBA87A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBContextGenarator", "DBContextGenarator\DBContextGenarator.csproj", "{CBC47A2A-53EA-4098-AC45-5BEC764E90FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{7F26C012-2585-4710-8826-DD993FBA87A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F26C012-2585-4710-8826-DD993FBA87A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F26C012-2585-4710-8826-DD993FBA87A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC47A2A-53EA-4098-AC45-5BEC764E90FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC47A2A-53EA-4098-AC45-5BEC764E90FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC47A2A-53EA-4098-AC45-5BEC764E90FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC47A2A-53EA-4098-AC45-5BEC764E90FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
