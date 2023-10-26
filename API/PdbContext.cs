@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebDAL.Entity;
+using WebDAL.Entities;
 
 namespace WebAPI
 {
-    public class PdbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class PdbContext : DbContext
     {
-        public DbSet<Guest> Guests { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         public PdbContext()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq;
 using WebAPI;
-using WebDAL.Entity;
+using WebDAL.Entities;
 
 namespace DBContextGenarator
 {
@@ -8,32 +9,43 @@ namespace DBContextGenarator
     {
         static void Main(string[] args)
         {
-            Test();
-            // using (var db = new PostgresDbContext())
-            // {
-            //     var guests = db.Guests.ToList();
-            //
-            //     foreach (var guest in guests)
-            //     {
-            //         Console.WriteLine(guest.Name + Environment.NewLine);
-            //     }
-            // }
+            RecreateDB();
+            FillMockupData();
+            LogAccounts();
         }
 
-        public static void Test()
+        static void LogAccounts()
         {
-            Console.WriteLine("Start");
+            using (var db = new PdbContext())
+            {
+                var accounts = db.Accounts.ToList();
+            
+                foreach (var account in accounts)
+                {
+                    Console.WriteLine(account.name + Environment.NewLine);
+                }
+            }
+        }
 
-
+        public static void RecreateDB()
+        {
             using (var db = new PdbContext())
             {
                 db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
+            }
+        }
 
-                var guest1 = new Guest() { name = "Test1", password = "Ttt" };
-                var guest2 = new Guest() { name = "Test2", password = "Aaaa" };
-                db.Guests.Add(guest1);
-                db.Guests.Add(guest2);
+        public static void FillMockupData()
+        {
+            Console.WriteLine("Start");
+
+            using (var db = new PdbContext())
+            {
+                var account1 = new Account() { name = "Test", password = "123", email = "mail@mail.ru"};
+                var account2 = new Account() { name = "Test4", password = "Aaaa" };
+                db.Accounts.Add(account1);
+                db.Accounts.Add(account2);
                 db.SaveChanges();
             }
 
