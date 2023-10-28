@@ -21,20 +21,21 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] object json)
+        public IActionResult Login([FromBody] AccountLoginModel model)
         {
             //TODO separate identity to email/phone
-            var accountLoginModel = JsonSerializer.Deserialize<AccountLoginModel>(json.ToString()!);
-            var existAccount = GetIdentifiedAccount(accountLoginModel);
+            var existAccount = GetIdentifiedAccount(model);
 
             if (existAccount == null)
             {
-                return NotFound($"Аккаунт с email '{accountLoginModel.AccountIdentity}' не найден.");
+                var message = $"Аккаунт с email '{model.AccountIdentity}' не найден.";
+                return NotFound(message);
             }
 
-            if (existAccount.password != accountLoginModel.Password)
+            if (existAccount.password != model.Password)
             {
-                return StatusCode(StatusCodes.Status406NotAcceptable, "Неверный пароль.");
+                var message = "Неверный пароль.";
+                return StatusCode(StatusCodes.Status406NotAcceptable, message);
             }
 
             UpdateAccountToken(existAccount);
@@ -57,7 +58,7 @@ namespace WebAPI.Controllers
         [NonAction]
         private Account GetIdentifiedAccount(AccountLoginModel model)
         {
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
                 var accounts = db.Accounts.Where(x => x.email == model.AccountIdentity).ToList();
 
@@ -80,7 +81,7 @@ namespace WebAPI.Controllers
         [NonAction]
         private string UpdateAccountToken(Account account)
         {
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
                 account.token = Guid.NewGuid().ToString();
                 db.Update(account);
@@ -93,10 +94,10 @@ namespace WebAPI.Controllers
         [NonAction]
         private bool IsCorrectToken(Account account)
         {
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
-                var guests = db.Accounts.ToArray();
-                return guests.Any(x => x.token == account.token && x.name == account.name);
+                var accounts = db.Accounts.ToArray();
+                return accounts.Any(x => x.token == account.token && x.name == account.name);
                 return db.Accounts.Any(x => x.token == account.token && x.name == account.name);
             }
         }

@@ -16,7 +16,7 @@ namespace DBContextGenarator
 
         static void LogAccounts()
         {
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
                 var accounts = db.Accounts.ToList();
             
@@ -29,7 +29,7 @@ namespace DBContextGenarator
 
         public static void RecreateDB()
         {
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
                 db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
@@ -40,16 +40,16 @@ namespace DBContextGenarator
         {
             Console.WriteLine("Start");
 
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
-                var account1 = new Account() { name = "Test", password = "123", email = "mail@mail.ru"};
+                var account1 = new Account() { name = "Test", password = "123", email = "mail@mail.ru", role = "Admin"};
                 var account2 = new Account() { name = "Test4", password = "Aaaa" };
                 db.Accounts.Add(account1);
                 db.Accounts.Add(account2);
                 db.SaveChanges();
             }
 
-            using (var db = new PdbContext())
+            using (var db = new AppDbContext())
             {
                 // var dep3 = db.Departments.Single(x => x.Name == "Dep3");
                 // dep3.Name = "Dep33";

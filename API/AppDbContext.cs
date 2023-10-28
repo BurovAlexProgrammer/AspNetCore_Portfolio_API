@@ -3,11 +3,11 @@ using WebDAL.Entities;
 
 namespace WebAPI
 {
-    public class PdbContext : DbContext
+    public class AppDbContext : DbContext
     {
         public DbSet<Account> Accounts { get; set; }
 
-        public PdbContext()
+        public AppDbContext()
         {
         }
 
@@ -16,10 +16,9 @@ namespace WebAPI
             optionsBuilder.UseNpgsql("Host=localhost;Port=3000;Database=Portfolio;Username=postgres;Password=123");
         }
 
+        //Fluent API - highest priority
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //Fluent API - highest priority
-
             // builder.Entity<Guest>()
             //     .ToTable("WTF") //Table name
             //     .HasKey("Id"); //Primary key
