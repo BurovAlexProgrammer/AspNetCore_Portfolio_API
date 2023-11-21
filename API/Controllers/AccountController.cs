@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebDAL.Entities;
@@ -14,17 +16,21 @@ namespace WebAPI.Controllers
     public class AccountController : ControllerBase
     {
         private ILogger<AccountController> _logger;
+        private readonly UserManager<Account> _userManager;
+        private readonly SignInManager<Account> _signInManager;
 
-        public AccountController(ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, UserManager<Account> userManager, SignInManager<Account> signInManager)
         {
             _logger = logger;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] AccountLoginModel model)
+        public async Task<IActionResult> Login([FromBody] AccountLoginModel model)
         {
+            var existAccount = await _userManager.FindByEmailAsync(model.AccountIdentity);
             //TODO separate identity to email/phone
-            var existAccount = GetIdentifiedAccount(model);
 
             if (existAccount == null)
             {
@@ -32,14 +38,23 @@ namespace WebAPI.Controllers
                 return NotFound(message);
             }
 
-            if (existAccount.password != model.Password)
-            {
-                var message = "Неверный пароль.";
-                return StatusCode(StatusCodes.Status406NotAcceptable, message);
-            }
+            var result = await _signInManager.PasswordSignInAsync(existAccount, model.Password, false, false);
 
-            UpdateAccountToken(existAccount);
-            return new ObjectResult(existAccount);
+            // if (existAccount.password != model.Password)
+            // {
+            // var message = "Неверный пароль.";
+            // return StatusCode(StatusCodes.Status406NotAcceptable, message);
+            // }
+
+            // UpdateAccountToken(existAccount);
+            // return new ObjectResult(existAccount);
+
+            // if (result.Succeeded)
+            // {
+            //     return Redirect(model.ReturnUrl);
+            // }
+
+            return new ObjectResult(result);
         }
 
         [HttpPost]

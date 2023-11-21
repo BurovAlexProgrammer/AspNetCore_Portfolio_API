@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebDAL.Entities;
 
 namespace WebAPI
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<Account, AccountRole, Guid> 
     {
         public DbSet<Account> Accounts { get; set; }
 
@@ -17,8 +19,10 @@ namespace WebAPI
         }
 
         //Fluent API - highest priority
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder) 
         {
+            base.OnModelCreating(builder); //Need for IdentityDbContext 
+            
             // builder.Entity<Guest>()
             //     .ToTable("WTF") //Table name
             //     .HasKey("Id"); //Primary key

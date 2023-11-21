@@ -3,7 +3,7 @@ using System.Linq;
 using WebAPI;
 using WebDAL.Entities;
 
-namespace DBContextGenarator
+namespace DbContextGenerator
 {
     class Program
     {
@@ -39,11 +39,11 @@ namespace DBContextGenarator
         public static void FillMockupData()
         {
             Console.WriteLine("Start");
-
+            
             using (var db = new AppDbContext())
             {
-                var account1 = new Account() { name = "Test", password = "123", email = "mail@mail.ru", role = "Admin"};
-                var account2 = new Account() { name = "Test4", password = "Aaaa" };
+                var account1 = new Account() { name = "Test", email = "mail@mail.ru", role = "Admin"};
+                var account2 = new Account() { name = "Test4"};
                 db.Accounts.Add(account1);
                 db.Accounts.Add(account2);
                 db.SaveChanges();
